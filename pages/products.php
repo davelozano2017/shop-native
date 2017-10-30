@@ -54,8 +54,8 @@ $query = $data->get_related_product_by_brand($row->product_brand,$row->product_i
                             <!-- Logo
                             ============================================= -->
                             <div id="logo">
-                                <a href="shop.php" class="standard-logo" data-dark-logo="../assets/images/logo.png"><img src="../assets/images/logo.png"></a>
-                                <a href="shop.php" class="retina-logo" data-dark-logo="../assets/images/logo.png"><img src="../assets/images/logo.png"></a>
+                                <a href="index.php" class="standard-logo" data-dark-logo="../assets/images/logo.png"><img src="../assets/images/logo.png"></a>
+                                <a href="index.php" class="retina-logo" data-dark-logo="../assets/images/logo.png"><img src="../assets/images/logo.png"></a>
                             </div><!-- #logo end -->
         
                             <!-- Primary Navigation

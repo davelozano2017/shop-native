@@ -42,6 +42,7 @@ function delete_product_by_id(id) {
         type : 'POST', url : url, data : data, cache : false, dataType : 'json',
         success:function(data) {
             successful(data.success,data.bgcolor,data.color,data.message);
+            show_products();
         }
     })
 }

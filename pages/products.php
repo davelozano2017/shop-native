@@ -3,7 +3,8 @@
 <?php 
 $product_id = $data->get('id');
 if(!$product_id) { header('location:index.php'); }
-$query = $data->get_product_per_page_usage_id($product_id);
+$query = $data->get_product_per_page_using_id($product_id);
+$query->num_rows > 0 ? null : redirect('pages','shop');
 $row = $query->fetch_object();
 $price_with_discount = $row->product_price - ($row->product_price * ($row->product_discount / 100));
 $query = $data->get_related_product_by_brand($row->product_brand,$row->product_id);
@@ -296,7 +297,7 @@ $query = $data->get_related_product_by_brand($row->product_brand,$row->product_i
                                             <div class="product iproduct clearfix">
                                                 <div class="product-image">
                                                 <?php foreach($data->get_image_by_id($row_product_catousel['product_id']) as $row_image):?>
-                                                <a href="products.php?id=<?=$row_product_catousel['product_id']?>"><img style="width:280px;height:250px" src="../assets/uploads/<?=$row_product_catousel['product_brand']?>/<?=$row_image['product_images']?>" alt="<?=$row_product_catousel['product_name']?>"></a>
+                                                <a href="products?id=<?=$row_product_catousel['product_id']?>"><img style="width:280px;height:250px" src="../assets/uploads/<?=$row_product_catousel['product_brand']?>/<?=$row_image['product_images']?>" alt="<?=$row_product_catousel['product_name']?>"></a>
                                                 <?php endforeach;?>
                                                 <?= $row_product_catousel['product_discount'] == 0 ? '' : '<div class="sale-flash">'.$row_product_catousel['product_discount'].'% Off*</div>';?>
                                                     <div class="product-overlay">

@@ -1,6 +1,6 @@
 <?php if(!isset($_SESSION['item_cart']) || empty($_SESSION['item_cart'])) {?>
     <tr class="cart_item">
-        <td class="center" colspan=6>Your cart is empty. click <a href="index.php">here</a> to continue shopping.</td>
+        <td class="center" colspan=6>Your cart is empty. click <a href="shop">here</a> to continue shopping.</td>
     </tr>
 <?php } else { ?>
     
@@ -42,7 +42,7 @@
         <div class="row clearfix">
             
             <div class="col-md-12 col-xs-8 nopadding">
-                <a href="checkout.php" class="button notopmargin fright">Proceed to Checkout</a>
+                <a href="checkout" class="button notopmargin fright">Proceed to Checkout</a>
             </div>
         </div>
     </td>

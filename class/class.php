@@ -46,7 +46,7 @@ class db extends Controller {
     }
     
     // get product per page using id 
-    public function get_product_per_page_usage_id($product_id) {
+    public function get_product_per_page_using_id($product_id) {
         $query = $this->db->query("SELECT * FROM products_tbl WHERE product_id = $product_id");
         return $query;
     }

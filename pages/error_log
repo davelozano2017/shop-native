@@ -1,0 +1,4 @@
+[10-Dec-2017 08:35:45 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_object() on boolean in /home/johndav1/public_html/shoppingcart/pages/products.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/johndav1/public_html/shoppingcart/pages/products.php on line 8

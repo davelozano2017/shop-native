@@ -1,5 +1,4 @@
 <?php include '../class/config.php';?>
-
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>

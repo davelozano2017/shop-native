@@ -47,8 +47,8 @@
                             <!-- Logo
                             ============================================= -->
                             <div id="logo">
-                                <a href="index.php" class="standard-logo" data-dark-logo="../assets/images/logo.png"><img src="../assets/images/logo.png"></a>
-                                <a href="index.php" class="retina-logo" data-dark-logo="../assets/images/logo.png"><img src="../assets/images/logo.png"></a>
+                                <a href="<?= base_url('pages','shop')?>" class="standard-logo" data-dark-logo="../assets/images/logo.png"><img src="../assets/images/logo.png"></a>
+                                <a href="<?= base_url('pages','shop')?>" class="retina-logo" data-dark-logo="../assets/images/logo.png"><img src="../assets/images/logo.png"></a>
                             </div><!-- #logo end -->
         
                             <!-- Primary Navigation
@@ -56,7 +56,7 @@
                             <nav id="primary-menu">
         
                                 <ul>
-                                    <li class="current"><a href="index.php"><div>Shop</div></a></li>
+                                    <li><a href="<?= base_url('pages','shop')?>"><div>Shop</div></a></li>
                                 </ul>
         
                                 <!-- Top Cart

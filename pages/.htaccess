@@ -1,6 +1,5 @@
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ index.php [F,L]
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|\%3D) [OR] 
 RewriteCond %{QUERY_STRING} base64_encode.*(.*) [OR] 

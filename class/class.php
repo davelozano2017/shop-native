@@ -13,10 +13,10 @@ class db extends Controller {
         $query = $this->db->query("SELECT * FROM products_brands_tbl");
         return $query;
     }
-
+    
     // Get all products
     public function get_products() {
-        $query = $this->db->query("SELECT * FROM products_tbl");
+        $query = $this->db->query("SELECT * FROM products_brands_tbl as pbt INNER JOIN products_tbl as pt ON pt.product_brand = pbt.product_brand");
         return $query;
     }
 
@@ -67,14 +67,12 @@ class db extends Controller {
             switch($status) {
                 case 'Delete':
                     unset($_SESSION['item_cart'][$product_id]);
-                    $this->notify([true,'#336699','#fff',$row->product_name. ' ' .'has been removed.']);
                 break;
 
                 case 'Update Quantity In Cart':
                     if(isset($_SESSION['item_cart'][$product_id]['product_id']) == $product_id && isset($quantity)) {
                         $_SESSION['item_cart'][$product_id]['product_quantity'] = $quantity;
                         $qty = ($quantity == 1)  ?  'quantity' : 'quantities';
-                        $this->notify([true,'#336699','#fff',$row->product_name. ' ' .'has been updated']);
                     } 
                 break;
 
@@ -82,7 +80,6 @@ class db extends Controller {
                     if(isset($_SESSION['item_cart'][$product_id]['product_id']) == $product_id && isset($quantity)) {
                         $_SESSION['item_cart'][$product_id]['product_quantity'] += $quantity;
                         $qty = ($quantity == 1)  ?  'quantity' : 'quantities';
-                        $this->notify([true,'#336699','#fff',$row->product_name. ' ' .'has been readded with '.$quantity.' '.$qty]);
                     } else {
                         $count = (!isset($_SESSION['item_cart'])) ? 0 : count($_SESSION['item_cart']);
                         $add_quantity = (isset($quantity)) ? $quantity : 1;
@@ -91,7 +88,6 @@ class db extends Controller {
                             'product_quantity' => $add_quantity, 'product_name' => $row->product_name, 'product_stocks' => $row->product_stocks,
                             'product_images' => $row->product_images, 'product_brand' => $row->product_brand
                         );
-                    $this->notify([true,'#336699','#fff',$row->product_name. ' ' .'has been added.']);
                     }
                 break;
             }

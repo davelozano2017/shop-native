@@ -13,7 +13,6 @@ function add_products() {
         $.ajax({
             type : 'POST', url : url, data: data, cache: false, dataType: 'json',
             success:function(data) {
-                successful(data.success,data.bgcolor,data.color,data.message);
                 show_products();
             }
         });
@@ -77,17 +76,16 @@ function add_to_cart(product_id,status) {
     button,setTimeout(function(){
         var data = { action : 'Add To Cart', product_id : product_id, status : status, quantity : quantity };
         $.ajax({
-            type: 'POST', url : 'shop-native/'+url, data :data, cache : false, dataType: 'json',
+            type: 'POST', url : 'shop-native/'+url, data :data, cache : false,
             success:function(data) {
-                data.success == true ? successful(data.success,data.bgcolor,data.color,data.message) : successful(data.success,data.bgcolor,data.color,data.message);
+                $('#add_to_cart'+product_id).html('<i class="icon-shopping-cart"></i> Add to Cart');
+                show_cart_counts();
+                show_cart_contents();
+                show_cart_content_in_cart_page();
+                show_cart_total();
+                show_cart_content_in_checkout_page();
             }
         })
-        $('#add_to_cart'+product_id).html('<i class="icon-shopping-cart"></i> Add to Cart');
-        show_cart_counts();
-        show_cart_contents();
-        show_cart_content_in_cart_page();
-        show_cart_total();
-        show_cart_content_in_checkout_page();
     },300);
 }
 
@@ -142,9 +140,8 @@ function quantity_in_cart(product_id,button) {
             $("#quantity"+product_id).val(Number($('#quantity'+product_id).val()) - 1 );
             var quantity = $('#quantity'+product_id).val();
             var data = { action : 'Update Quantity In Cart', product_id : product_id, quantity : quantity };
-            $.ajax({type : 'POST',url : 'shop-native/'+url, data : data,dataType: 'json',
+            $.ajax({type : 'POST',url : 'shop-native/'+url, data : data,
                 success:function(data){
-                    data.success == true ? successful(data.success,data.bgcolor,data.color,data.message) : successful(data.success,data.bgcolor,data.color,data.message);
                     show_cart_content_in_cart_page();
                     show_cart_counts();
                     show_cart_contents();
@@ -156,9 +153,8 @@ function quantity_in_cart(product_id,button) {
         $('#quantity'+product_id).val(Number($('#quantity'+product_id).val()) + 1 );
         var quantity = $('#quantity'+product_id).val();
         var data = { action : 'Update Quantity In Cart', product_id : product_id, quantity : quantity };
-        $.ajax({type : 'POST',url : 'shop-native/'+url, data : data,dataType: 'json',
+        $.ajax({type : 'POST',url : 'shop-native/'+url, data : data,
             success:function(data){
-                data.success == true ? successful(data.success,data.bgcolor,data.color,data.message) : successful(data.success,data.bgcolor,data.color,data.message);
                 show_cart_content_in_cart_page();
                 show_cart_counts();
                 show_cart_contents();

@@ -113,7 +113,7 @@
 					<div class="col_half">
 						<div class="panel panel-default">
 							<div class="panel-body">
-								Returning customer? <a href="login-register.html">Click here to login</a>
+								Returning customer? <a href="<?=base_url('pages','login')?>" >Click here to login</a>
 							</div>
 						</div>
 					</div>
@@ -155,7 +155,12 @@
 								<div class="acctitle"><i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>Paypal</div>
 								<div class="acc_content clearfix">Will integrate this feature soon ;)</div>
 							</div>
-							<button class="button fright" id="place_order">Place Order</button>
+							<?php 
+							if(!isset($_SESSION['id'])){?>
+								<a href="<?=base_url('pages','login')?>" class="button fright">Please login first</a>
+							<?php } else {?>
+								<button class="button fright" id="place_order">Place Order</button>
+							<?php } ?>
 						</div>
 					</div>
 				</div>

@@ -65,6 +65,11 @@ $query = $data->get_related_product_by_brand($row->product_brand,$row->product_i
         
                                 <ul>
                                     <li><a href="<?= base_url('pages','shop')?>"><div>Shop</div></a></li>
+                                    <?php if(!isset($_SESSION['id'])) { ?> 
+                                        <li><a href="<?= base_url('pages','login')?>"><div>Login</div></a></li>
+                                    <?php } else { ?>
+                                        <li><a href="<?= base_url('pages','my-account')?>"><div>My Account</div></a></li>
+                                    <?php } ?>                                      
                                 </ul>
         
                                 <!-- Top Cart
@@ -101,7 +106,7 @@ $query = $data->get_related_product_by_brand($row->product_brand,$row->product_i
                 <div class="container clearfix">
                     <h1><?=$row->product_name?></h1>
                     <ol class="breadcrumb">
-                        <li><a href="index.php">Shop</a></li>
+                        <li><a href="<?= base_url('pages','shop')?>">Shop</a></li>
                         <li class="active"><?=$row->product_brand?></li>
                     </ol>
                 </div>
@@ -166,7 +171,15 @@ $query = $data->get_related_product_by_brand($row->product_brand,$row->product_i
                                             <input type="text" value=1 name="quantity" title="Qty" id="quantity<?=$row->product_id?>" class="qty"/>
                                             <input type="button" value="+" id="plus" class="plus">
                                         </div>
-                                        <button id="add_to_cart<?=$row->product_id?>" onclick="add_to_cart('<?=$row->product_id?>','Add')" class="add-to-cart button nomargin add_to_cart_in_quick_view">Add to cart</button>
+                                        
+                                        <?php 
+                                        
+                                        if($row->product_stocks == 0){?>
+                                            <button class="add-to-cart button nomargin add_to_cart_in_quick_view">Not Available</button>
+                                        <?php } else { ?>
+                                            <button id="add_to_cart<?=$row->product_id?>" onclick="add_to_cart('<?=$row->product_id?>','Add')" class="add-to-cart button nomargin add_to_cart_in_quick_view">Add to cart</button>
+                                        <?php } ?>
+                                        
         
                                         <div class="clear"></div>
                                         <div class="line"></div>
@@ -292,25 +305,30 @@ $query = $data->get_related_product_by_brand($row->product_brand,$row->product_i
                                 <!-- product slider here  -->
                                 <?php if($query->num_rows > 0) {?>
                                     <?php 
-                                    foreach($query as $row_product_catousel):?>
+                                    foreach($query as $row_product_carousel):?>
                                         <div class="oc-item">
                                             <div class="product iproduct clearfix">
                                                 <div class="product-image">
-                                                <?php foreach($data->get_image_by_id($row_product_catousel['product_id']) as $row_image):?>
-                                                <a href="products?id=<?=$row_product_catousel['product_id']?>"><img style="width:280px;height:250px" src="../assets/uploads/<?=$row_product_catousel['product_brand']?>/<?=$row_image['product_images']?>" alt="<?=$row_product_catousel['product_name']?>"></a>
+                                                <?php foreach($data->get_image_by_id($row_product_carousel['product_id']) as $row_image):?>
+                                                <a href="products?id=<?=$row_product_carousel['product_id']?>"><img style="width:280px;height:250px" src="../assets/uploads/<?=$row_product_carousel['product_brand']?>/<?=$row_image['product_images']?>" alt="<?=$row_product_carousel['product_name']?>"></a>
                                                 <?php endforeach;?>
-                                                <?= $row_product_catousel['product_discount'] == 0 ? '' : '<div class="sale-flash">'.$row_product_catousel['product_discount'].'% Off*</div>';?>
+                                                <?= $row_product_carousel['product_discount'] == 0 ? '' : '<div class="sale-flash">'.$row_product_carousel['product_discount'].'% Off*</div>';?>
                                                     <div class="product-overlay">
-                                                    <input type="hidden" id="quantity<?=$row_product_catousel['product_id']?>" value=1 >
-                                                    <a style="cursor:pointer" id="add_to_cart<?=$row_product_catousel['product_id']?>" onclick="add_to_cart('<?=$row_product_catousel['product_id']?>','Add',1)" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart </span></a>
-                                                    <a href="../class/includes/quick-view.php?product_id=<?=$row_product_catousel['product_id']?>" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                                                    <input type="hidden" id="quantity<?=$row_product_carousel['product_id']?>" value=1 >
+                                                    <?php 
+                                                    if($row_product_carousel['product_stocks'] == 0){?>
+                                                        <a style="cursor:pointer" class="add-to-cart"><span> Not Available </span></a>
+                                                    <?php } else { ?>
+                                                        <a style="cursor:pointer" id="add_to_cart<?=$row_product_carousel['product_id']?>" onclick="add_to_cart('<?=$row_product_carousel['product_id']?>','Add',1)" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart </span></a>
+                                                    <?php } ?>
+                                                    <a href="../class/includes/quick-view?product_id=<?=$row_product_carousel['product_id']?>" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
                                                     </div>
                                                 </div>
                                                 <div class="product-desc center">
-                                                    <div class="product-title"><h3><a href="products.php?id=<?=$row_product_catousel['product_id']?>"><?= $row_product_catousel['product_name']?></a></h3></div>
-                                                    <div class="product-price"><?= $row_product_catousel['product_discount'] == 0 ? '<ins>&#8369;'.number_format($row_product_catousel['product_price'],2).'</ins>' : '<del>&#8369;'.number_format($row_product_catousel['product_price'],2).'</del> <ins>&#8369;'.number_format(sprintf("%1.2f",round($price_with_discount)),2).'</ins>';?></div>
+                                                    <div class="product-title"><h3><a href="products?id=<?=$row_product_carousel['product_id']?>"><?= $row_product_carousel['product_name']?></a></h3></div>
+                                                    <div class="product-price"><?= $row_product_carousel['product_discount'] == 0 ? '<ins>&#8369;'.number_format($row_product_carousel['product_price'],2).'</ins>' : '<del>&#8369;'.number_format($row_product_carousel['product_price'],2).'</del> <ins>&#8369;'.number_format(sprintf("%1.2f",round($price_with_discount)),2).'</ins>';?></div>
                                                     <div class="product-rating">
-                                                        <span>Brand:</span> <?=$row_product_catousel['product_brand']?>
+                                                        <span>Brand:</span> <?=$row_product_carousel['product_brand']?>
                                                     </div>
                                                 </div>
                                             </div>
